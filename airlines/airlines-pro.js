@@ -3,7 +3,7 @@
  * 
  * changes Todo
  * 
- * todo - Operacion completada cuando se introduce una operacion no valida
+ * * - Operacion completada cuando se introduce una operacion no valida
  * * - Despues de la bienvenida sale una operacion completada
  * todo - Al crear el vuelo pedir los parametros de uno en uno
  * todo - Cuando eliminamos vuelos mostrar la lista por pantalla
@@ -88,6 +88,8 @@ window.onload = () => {
                     alert ( comprarVuelo( Number.parseInt( userInput ) ) )
                 } else {
                     console.error( 'Comando no reconocido' )
+                    alert( 'Comando no reconocido' )
+                    userInput = true;
                 }
                 break;
 

@@ -4,7 +4,7 @@
  * changes Todo
  * 
  * todo - Operacion completada cuando se introduce una operacion no valida
- * todo - Despues de la bienvenida sale una operacion completada
+ * * - Despues de la bienvenida sale una operacion completada
  * todo - Al crear el vuelo pedir los parametros de uno en uno
  * todo - Cuando eliminamos vuelos mostrar la lista por pantalla
  * todo - unir la opcion buscar y comprar
@@ -80,6 +80,7 @@ window.onload = () => {
             case '08':
                 login();
                 alert( `Saludos ${ user.nombre } te damos la bienvenida a los sistemas de SkyLab Airlines.` );
+                userInput = true;
                 break;
 
             default:

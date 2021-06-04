@@ -143,7 +143,6 @@ class bingo {
             console.clear();
             this._setPlayerCard( this._newCard() );
             seeData( this._playerCard.chunk(5) );
-            console.log( this._playerCard )
 
         } while( !confirm( 'Desea este carton?' ) )
 
@@ -155,7 +154,7 @@ class bingo {
 
         } while ( this._innerCard.length > 0 ? confirm( 'Desea jugar otro turno?' ) : false )
 
-        this._endGame();
+        if(this._innerCard.length === 0) this._endGame();
         
     }
 

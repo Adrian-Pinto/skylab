@@ -5,7 +5,7 @@
  * 
  * * - Operacion completada cuando se introduce una operacion no valida
  * * - Despues de la bienvenida sale una operacion completada
- * todo - Al crear el vuelo pedir los parametros de uno en uno
+ * * - Al crear el vuelo pedir los parametros de uno en uno
  * * - Cuando eliminamos vuelos mostrar la lista por pantalla
  * todo - unir la opcion buscar y comprar
  *        
@@ -338,7 +338,8 @@ verUltimosVuelos = () => {
  */
 crearVuelo = () => {
     let vuelosActivos = 0;
-    let userInput;
+    let userInput = [ 'Porfavor introduce el nombre del origen.', 'Porfavor introduce el nombre del destino.', 'Porfavor introduce el coste del vuelo. ( Solo digitos )', 'El vueo tiene escalas? ( True | False )' ];
+
     class nuevoVuelo {
         constructor( [ from, to, cost, scale ] = data ) {
             this.id = flights.length;
@@ -354,17 +355,15 @@ crearVuelo = () => {
     flights.forEach( flight => flight.activo ? vuelosActivos++ : vuelosActivos )
     if( vuelosActivos > 15 ) {
         alert ( 'No pueden haber mas de 15 vuelos activos.' )
-        return
+        return;
 
     } else {
-        userInput = adquisicionDatos( `
-        Porfavor introduce el nuevo vuelo con el formato:
-        from,to,cost,scale
-        ejemplo: Barcelona,Tokio,350,true
-        `, 'dato' )
-        if( userInput === null ) return
+        for( message in userInput ) {
+            userInput[message] = adquisicionDatos( userInput[message], 'dato' )
+        }
+        if( userInput === null ) return;
         try {
-            flights.push( new nuevoVuelo( userInput.split( ',' ) ) );
+            flights.push( new nuevoVuelo( userInput ) );
 
         } catch ( error ) {
             alert( 'Error en los datos introducidos' )

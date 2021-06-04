@@ -6,7 +6,7 @@
  * * - Operacion completada cuando se introduce una operacion no valida
  * * - Despues de la bienvenida sale una operacion completada
  * todo - Al crear el vuelo pedir los parametros de uno en uno
- * todo - Cuando eliminamos vuelos mostrar la lista por pantalla
+ * * - Cuando eliminamos vuelos mostrar la lista por pantalla
  * todo - unir la opcion buscar y comprar
  *        
  * 
@@ -74,6 +74,7 @@ window.onload = () => {
             case 'eliminarvuelo':
             case '07':
                 if( user.admin === true ) alert( eliminarVuelo() );
+                userInput = true;
                 break;
 
             case 'cambiarusuario':
@@ -387,6 +388,7 @@ eliminarVuelo = ( userInput = '' ) => {
         return userInput;
 
     } else {
+        console.table( flights )
         if( Object.is( userInput, NaN ) ) alert( 'Introduce numero entero' )
         userInput = adquisicionDatos( 'Introduzca el ID del vuelo a eliminar:', 'dato' );
         userInput = eliminarVuelo( userInput === null ? userInput : parseInt( userInput ) );

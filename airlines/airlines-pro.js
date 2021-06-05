@@ -1,8 +1,15 @@
 /**
  * Changelog
  * 
- * - Se actualiza adquisicionDeDatos() con el parametro num para aceptar solo numeros
+ * - Se actualiza adquisicionDeDatos() con el parametro 'num' para aceptar solo numeros
  * - Se elimina la opcion de introducir un id desde el menu para comprar
+ * - Ahora crearVuelo() pide los valores de uno en uno
+ * - Ahora eliminarVuelo() muestra la lista de vuelos
+ * - Se a simplificado la funcion eliminarVuelo()
+ * - Ahora buscarVuelo() nos da la opcion de comprar al finalizar la busqueda
+ * - El programa ya no avisa de operacion completada el poner un comando invalido
+ * - Al cambiar de usuario ya no muestra el mensaje de operacion completada 
+ * 
  * 
  * changes Todo
  * 
@@ -261,9 +268,9 @@ login = () => {
     let expresion = new RegExp ( tipo === 'dato' ? /^[A-Za-zñáéíóú<>=,0-9\s]+$/g : tipo === 'num' ? /^[0-9]+$/ : /^([A-Za-zñáéíóú]+[\s]*)+$/);
     let input = prompt( mensaje );
 
-    if( input !== null ) input = input.replace(/\s+/g, '');
-    if( expresion.test( input ) ) return input === null ? input : input.toLocaleLowerCase();
-    alert( `Porfavor usa unicamente ${ tipo === 'dato' ? 'caracteres de Aa a Zz y numeros de 0 a 9' : tipo === 'num' ? 'digitos de 0 a 9' :'' }.`  );
+    if( input === null ) return null
+    if( expresion.test( input ) ) return input === null ? null : input.toLocaleLowerCase().replace(/\s+/g, '');
+    alert( `Porfavor usa unicamente ${ tipo === 'dato' ? 'caracteres de Aa a Zz y numeros de 0 a 9' : tipo === 'num' ? 'digitos de 0 a 9' : 'caracteres de Aa a Zz' }.`  );
     return adquisicionDatos( mensaje, tipo );
 
 }
@@ -384,19 +391,11 @@ crearVuelo = () => {
 eliminarVuelo = ( userInput = '' ) => {
     let vueloParaMarcar = '';
 
-    if( Number.isInteger( userInput ) || userInput === null ) {
-        return userInput;
-
-    } else {
-        console.table( flights )
-        if( Object.is( userInput, NaN ) ) alert( 'Introduce numero entero' )
-        userInput = adquisicionDatos( 'Introduzca el ID del vuelo a eliminar:', 'dato' );
-        userInput = eliminarVuelo( userInput === null ? userInput : parseInt( userInput ) );
-        if( userInput === null ) return 'Accion cancelada';
-        vueloParaMarcar = flights.find( flight => flight.id === userInput );
-        return vueloParaMarcar.activo === true ? ( vueloParaMarcar.activo = false, 'Vuelo eliminado correctamente' ) : 'No se a podido eliminar el vuelo';
-
-    }
+    console.table( flights )
+    userInput = Number.parseInt( adquisicionDatos( 'Introduzca el ID del vuelo a eliminar:', 'num' ) );
+    if( userInput === null ) return 'Accion cancelada';
+    vueloParaMarcar = flights.find( flight => flight.id === userInput );
+    return vueloParaMarcar.activo === true ? ( vueloParaMarcar.activo = false, 'Vuelo eliminado correctamente' ) : 'No se a podido eliminar el vuelo';
 
 }
 

@@ -1,28 +1,3 @@
-/**
- * Changelog
- * 
- * - Se actualiza adquisicionDeDatos() con el parametro 'num' para aceptar solo numeros
- * - Se elimina la opcion de introducir un id desde el menu para comprar
- * - Ahora crearVuelo() pide los valores de uno en uno
- * - Ahora eliminarVuelo() muestra la lista de vuelos
- * - Se a simplificado la funcion eliminarVuelo()
- * - Ahora buscarVuelo() nos da la opcion de comprar al finalizar la busqueda
- * - El programa ya no avisa de operacion completada el poner un comando invalido
- * - Al cambiar de usuario ya no muestra el mensaje de operacion completada 
- * 
- * 
- * changes Todo
- * 
- * * - Operacion completada cuando se introduce una operacion no valida
- * * - Despues de la bienvenida sale una operacion completada
- * * - Al crear el vuelo pedir los parametros de uno en uno
- * * - Cuando eliminamos vuelos mostrar la lista por pantalla
- * * - unir la opcion buscar y comprar
- *        
- * 
- * 
- * 
- */
 window.onload = () => {
     let userInput = true;
     addActivo();

@@ -1,13 +1,16 @@
 /**
  * Changelog
  * 
+ * - Se actualiza adquisicionDeDatos() con el parametro num para aceptar solo numeros
+ * - Se elimina la opcion de introducir un id desde el menu para comprar
+ * 
  * changes Todo
  * 
  * * - Operacion completada cuando se introduce una operacion no valida
  * * - Despues de la bienvenida sale una operacion completada
  * * - Al crear el vuelo pedir los parametros de uno en uno
  * * - Cuando eliminamos vuelos mostrar la lista por pantalla
- * todo - unir la opcion buscar y comprar
+ * * - unir la opcion buscar y comprar
  *        
  * 
  * 
@@ -60,6 +63,7 @@ window.onload = () => {
             
             case 'buscarvuelo':
                 if( !user.admin ) buscarVuelo();
+                userInput = true;
                 break;
 
             case 'crearvuelo':
@@ -68,7 +72,10 @@ window.onload = () => {
 
             case '06':
                 if( user.admin ) crearVuelo();
-                if( !user.admin ) buscarVuelo();
+                if( !user.admin ) {
+                    buscarVuelo();
+                    userInput = true;
+                }
                 break;
 
             case 'eliminarvuelo':
@@ -85,13 +92,9 @@ window.onload = () => {
                 break;
 
             default:
-                if( user.admin === false && Number.isInteger( Number.parseInt( userInput ) ) ) {
-                    alert ( comprarVuelo( Number.parseInt( userInput ) ) )
-                } else {
-                    console.error( 'Comando no reconocido' )
-                    alert( 'Comando no reconocido' )
-                    userInput = true;
-                }
+                console.error( 'Comando no reconocido' )
+                alert( 'Comando no reconocido' )
+                userInput = true;
                 break;
 
         }
@@ -107,8 +110,7 @@ window.onload = () => {
         04 - Ver ultimos vuelos
         05 - Ver todo
         ${ user.admin ? `06 - Crear vuelo
-        07 - Eliminar vuelo` : `06 - Buscar vuelo
-             - Introduce un ID para comprar un vuelo` }
+        07 - Eliminar vuelo` : `06 - Buscar vuelo` }
         08 - Cambiar Usuario
         09 - Salir
       ` )
@@ -122,8 +124,7 @@ window.onload = () => {
             04 - Ver ultimos vuelos
             05 - Ver todo
             ${ user.admin ? `06 - Crear vuelo
-            07 - Eliminar vuelo` : `06 - Buscar vuelo
-                 - Introduce un ID para comprar un vuelo` }
+            07 - Eliminar vuelo` : `06 - Buscar vuelo` }
             08 - Cambiar Usuario
             09 - Salir
         `, 'dato' );
@@ -257,12 +258,12 @@ login = () => {
  * @returns { String || null }
  */
  adquisicionDatos = ( mensaje, tipo ) => {
-    let expresion = new RegExp ( tipo === 'dato' ? /^[A-Za-zñáéíóú<>=,0-9\s]+$/g : /^([A-Za-zñáéíóú]+[\s]*)+$/);
+    let expresion = new RegExp ( tipo === 'dato' ? /^[A-Za-zñáéíóú<>=,0-9\s]+$/g : tipo === 'num' ? /^[0-9]+$/ : /^([A-Za-zñáéíóú]+[\s]*)+$/);
     let input = prompt( mensaje );
 
     if( input !== null ) input = input.replace(/\s+/g, '');
     if( expresion.test( input ) ) return input === null ? input : input.toLocaleLowerCase();
-    alert( `Porfavor usa unicamente caracteres de Aa a Zz ${ tipo === 'dato' ? 'y numeros de 0 a 9' : '' }.`  );
+    alert( `Porfavor usa unicamente ${ tipo === 'dato' ? 'caracteres de Aa a Zz y numeros de 0 a 9' : tipo === 'num' ? 'digitos de 0 a 9' :'' }.`  );
     return adquisicionDatos( mensaje, tipo );
 
 }
@@ -406,6 +407,7 @@ eliminarVuelo = ( userInput = '' ) => {
 buscarVuelo = ( buscarCoste = '' ) => {
     let resultado = new Array;
     let operador = new String;
+    let userInput = new Number;
 
     if( Number.isInteger( buscarCoste ) ) { 
         return buscarCoste;
@@ -439,7 +441,12 @@ buscarVuelo = ( buscarCoste = '' ) => {
     }
     
     if( resultado.length > 0 ) {
-        verVuelos( resultado );   
+        verVuelos( resultado );
+        userInput = adquisicionDatos( 'Si desea comprar un vuelo introduzca su ID, si no, pulse cancelar.', 'num' )
+        if( user.admin === false && Number.isInteger( Number.parseInt( userInput ) ) ) {
+            alert ( comprarVuelo( Number.parseInt( userInput ) ) )
+
+        }
     
     } else {
         console.log( 'La busqueda no dio ningun resultado' )

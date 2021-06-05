@@ -45,6 +45,7 @@ window.onload = () => {
             
             case 'buscarvuelo':
                 if( !user.admin ) buscarVuelo();
+                userInput = true;
                 break;
 
             case 'crearvuelo':
@@ -53,26 +54,29 @@ window.onload = () => {
 
             case '06':
                 if( user.admin ) crearVuelo();
-                if( !user.admin ) buscarVuelo();
+                if( !user.admin ) {
+                    buscarVuelo();
+                    userInput = true;
+                }
                 break;
 
             case 'eliminarvuelo':
             case '07':
                 if( user.admin === true ) alert( eliminarVuelo() );
+                userInput = true;
                 break;
 
             case 'cambiarusuario':
             case '08':
                 login();
                 alert( `Saludos ${ user.nombre } te damos la bienvenida a los sistemas de SkyLab Airlines.` );
+                userInput = true;
                 break;
 
             default:
-                if( user.admin === false && Number.isInteger( Number.parseInt( userInput ) ) ) {
-                    alert ( comprarVuelo( Number.parseInt( userInput ) ) )
-                } else {
-                    console.error( 'Comando no reconocido' )
-                }
+                console.error( 'Comando no reconocido' )
+                alert( 'Comando no reconocido' )
+                userInput = true;
                 break;
 
         }
@@ -88,8 +92,7 @@ window.onload = () => {
         04 - Ver ultimos vuelos
         05 - Ver todo
         ${ user.admin ? `06 - Crear vuelo
-        07 - Eliminar vuelo` : `06 - Buscar vuelo
-             - Introduce un ID para comprar un vuelo` }
+        07 - Eliminar vuelo` : `06 - Buscar vuelo` }
         08 - Cambiar Usuario
         09 - Salir
       ` )
@@ -103,8 +106,7 @@ window.onload = () => {
             04 - Ver ultimos vuelos
             05 - Ver todo
             ${ user.admin ? `06 - Crear vuelo
-            07 - Eliminar vuelo` : `06 - Buscar vuelo
-                 - Introduce un ID para comprar un vuelo` }
+            07 - Eliminar vuelo` : `06 - Buscar vuelo` }
             08 - Cambiar Usuario
             09 - Salir
         `, 'dato' );
@@ -238,12 +240,12 @@ login = () => {
  * @returns { String || null }
  */
  adquisicionDatos = ( mensaje, tipo ) => {
-    let expresion = new RegExp ( tipo === 'dato' ? /^[A-Za-zñáéíóú<>=,0-9\s]+$/g : /^([A-Za-zñáéíóú]+[\s]*)+$/);
+    let expresion = new RegExp ( tipo === 'dato' ? /^[A-Za-zñáéíóú<>=,0-9\s]+$/g : tipo === 'num' ? /^[0-9]+$/ : /^([A-Za-zñáéíóú]+[\s]*)+$/);
     let input = prompt( mensaje );
 
-    if( input !== null ) input = input.replace(/\s+/g, '');
-    if( expresion.test( input ) ) return input === null ? input : input.toLocaleLowerCase();
-    alert( `Porfavor usa unicamente caracteres de Aa a Zz ${ tipo === 'dato' ? 'y numeros de 0 a 9' : '' }.`  );
+    if( input === null ) return null
+    if( expresion.test( input ) ) return input === null ? null : input.toLocaleLowerCase().replace(/\s+/g, '');
+    alert( `Porfavor usa unicamente ${ tipo === 'dato' ? 'caracteres de Aa a Zz y numeros de 0 a 9' : tipo === 'num' ? 'digitos de 0 a 9' : 'caracteres de Aa a Zz' }.`  );
     return adquisicionDatos( mensaje, tipo );
 
 }
@@ -319,7 +321,8 @@ verUltimosVuelos = () => {
  */
 crearVuelo = () => {
     let vuelosActivos = 0;
-    let userInput;
+    let userInput = [ 'Porfavor introduce el nombre del origen.', 'Porfavor introduce el nombre del destino.', 'Porfavor introduce el coste del vuelo. ( Solo digitos )', 'El vueo tiene escalas? ( True | False )' ];
+
     class nuevoVuelo {
         constructor( [ from, to, cost, scale ] = data ) {
             this.id = flights.length;
@@ -335,17 +338,15 @@ crearVuelo = () => {
     flights.forEach( flight => flight.activo ? vuelosActivos++ : vuelosActivos )
     if( vuelosActivos > 15 ) {
         alert ( 'No pueden haber mas de 15 vuelos activos.' )
-        return
+        return;
 
     } else {
-        userInput = adquisicionDatos( `
-        Porfavor introduce el nuevo vuelo con el formato:
-        from,to,cost,scale
-        ejemplo: Barcelona,Tokio,350,true
-        `, 'dato' )
-        if( userInput === null ) return
+        for( message in userInput ) {
+            userInput[message] = adquisicionDatos( userInput[message], 'dato' )
+        }
+        if( userInput === null ) return;
         try {
-            flights.push( new nuevoVuelo( userInput.split( ',' ) ) );
+            flights.push( new nuevoVuelo( userInput ) );
 
         } catch ( error ) {
             alert( 'Error en los datos introducidos' )
@@ -365,18 +366,11 @@ crearVuelo = () => {
 eliminarVuelo = ( userInput = '' ) => {
     let vueloParaMarcar = '';
 
-    if( Number.isInteger( userInput ) || userInput === null ) {
-        return userInput;
-
-    } else {
-        if( Object.is( userInput, NaN ) ) alert( 'Introduce numero entero' )
-        userInput = adquisicionDatos( 'Introduzca el ID del vuelo a eliminar:', 'dato' );
-        userInput = eliminarVuelo( userInput === null ? userInput : parseInt( userInput ) );
-        if( userInput === null ) return 'Accion cancelada';
-        vueloParaMarcar = flights.find( flight => flight.id === userInput );
-        return vueloParaMarcar.activo === true ? ( vueloParaMarcar.activo = false, 'Vuelo eliminado correctamente' ) : 'No se a podido eliminar el vuelo';
-
-    }
+    console.table( flights )
+    userInput = Number.parseInt( adquisicionDatos( 'Introduzca el ID del vuelo a eliminar:', 'num' ) );
+    if( userInput === null ) return 'Accion cancelada';
+    vueloParaMarcar = flights.find( flight => flight.id === userInput );
+    return vueloParaMarcar.activo === true ? ( vueloParaMarcar.activo = false, 'Vuelo eliminado correctamente' ) : 'No se a podido eliminar el vuelo';
 
 }
 
@@ -387,6 +381,7 @@ eliminarVuelo = ( userInput = '' ) => {
 buscarVuelo = ( buscarCoste = '' ) => {
     let resultado = new Array;
     let operador = new String;
+    let userInput = new Number;
 
     if( Number.isInteger( buscarCoste ) ) { 
         return buscarCoste;
@@ -420,7 +415,12 @@ buscarVuelo = ( buscarCoste = '' ) => {
     }
     
     if( resultado.length > 0 ) {
-        verVuelos( resultado );   
+        verVuelos( resultado );
+        userInput = adquisicionDatos( 'Si desea comprar un vuelo introduzca su ID, si no, pulse cancelar.', 'num' )
+        if( user.admin === false && Number.isInteger( Number.parseInt( userInput ) ) ) {
+            alert ( comprarVuelo( Number.parseInt( userInput ) ) )
+
+        }
     
     } else {
         console.log( 'La busqueda no dio ningun resultado' )

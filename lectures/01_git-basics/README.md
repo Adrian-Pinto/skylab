@@ -48,10 +48,42 @@ This area stores different snapshots of the workspace, we can restore them later
 ## Remote repo
 This environment refers to an external server where we store our commit history, we use the remote repository to be able to do projects with other people.
 # Branches
-## create a new branch
-## delete a branch
-## change though branches
-## merge branches
+Both locally and remotely the branches let us divide our code into branches, these are forks of the code. What we do in the workspace affects only our current branch. All repositories start on the main branch
+## Create a new branch
+Normally we are make a new from from other branch but if we want, can do a orphan branch.
+~~~bash
+# Create a new branch from actual branch
+git branch {{branchName}}
+# Create a branch and switch to it
+git checkout -b {{brancName}}
+# Create a orphan brnach
+git checkout --orphan {{branchName}}
+~~~
+## Delete a branch
+~~~bash
+# Delete a branch
+git branch -d {{branchName}}
+~~~
+## List brnaches
+~~~bash
+# List branches
+git branch
+~~~
+## Change between branches
+~~~bash
+# Change to indicated branch
+git checkout {{branchName}}
+# Or
+git switch {{branchName}}
+# Return to the previous branch
+git switch -
+~~~
+## Merge branches
+Exist some merge strategies to join and mix our commits history but for now we only attack the way we can keep all commits history.
+~~~bash
+# Merge changes of indicated branch to our current branch
+git merge --no-ff {{branchName}} 
+~~~
 # Basics commands
 ## status
 See the status of your work directory

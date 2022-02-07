@@ -13,20 +13,20 @@ gh repo create
 ## Git clone repo
 web can clone a existing repo locally
 ~~~bash
-# Create a copy of repo in our local machine
+# Make a copy of repo in our local machine
 gh repo clone {{userName}}/{{repoName}}
 ~~~
 ## configure git ignore local
-We can define a git ignore file locally on a repo, to these we need to create a .gitignore file and add paht of ignore files
+We can define a git ignore file locally, to these we need to create a .gitignore file and add paht of ignore files
 ~~~bash
 # In root of repo
 touch .gitignore && code $_
 # Now add all file or dir path what you want to ignore
-# .gitignore file
+# .gitignore file example
 {{fileName}}
 *.{{extension}}
 /{{dirName}}
-# Now store it and git start apply you ignire list immediately
+# Now store it and git start apply you ignore list immediately
 ~~~
 ## git delete repo
 To delete a Git repo we need to remove the .git directory
@@ -35,11 +35,18 @@ To delete a Git repo we need to remove the .git directory
 rm -rf .git
 ~~~
 # Git environments
-## local repo
-### stash area
-### work directory
-### staging area aka Index
-## remote repo
+Git can work in two principals environments, local and remote
+## Local repo
+These environments refer to commit storage on our machine and have some 'areas' to organize your files and view its state. In these environment, we can find the following areas
+### Working area aka workSpace
+Here is our main space here we can a list of all our files on repository directory, this files can be tracked or not.
+Also in working space we can manage branches, add or drop file from stagging and sync our changes with remote repository
+### Staging area aka Index
+In short, all the files we add to these area will be included in the next commit.
+### Stash area 
+This area stores different snapshots of the workspace, we can restore them later or just delete them if we don't need them anymore.
+## Remote repo
+This environment refers to an external server where we store our commit history, we use the remote repository to be able to do projects with other people.
 # Branches
 ## create a new branch
 ## delete a branch

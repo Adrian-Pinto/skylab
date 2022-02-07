@@ -121,11 +121,35 @@ git commit -m "message"
 # Commit opening our default terminal text editor
 git commit
 ~~~
-## stash
-### list
-### stash
-### pop
-### drop
+## Stash
+Remember in this area we can keep snapshots of working space
+### List stash
+~~~bash
+# List stash stored and it's index
+git stash list
+~~~
+### Add new entry
+~~~bash
+# Store our current work space to a new stash entry
+git stash
+# Store and add a note to stash entry
+git stash save "message"
+~~~
+### Restore a stash
+With pop command we can restore stash to working space and delete it from stash list at same time
+~~~bash
+# Restore index 0 to work space
+git stash pop
+# Restore a specific space
+git stash pop stash@{StashIndex} # git stash pop stash@{2}
+~~~
+### Delete a stash
+~~~bash
+# Delete index 0 of stash
+git stash drop
+# Delete indicated stash
+git stash drop stash@{stashIndex} # git stash drop stash@{4}
+~~~
 # work in remote
 ## pull
 ## push

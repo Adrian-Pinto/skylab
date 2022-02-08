@@ -1,7 +1,7 @@
 # Git Basics
 This small guide of git have the goal to be a fast init with git without enter in a technical explanations.
 # Manage repo
-When i speak how we can manage the repos i will refear how we can create o delete it
+When i speak how we can manage the repos i will refer how we can create o delete it
 ## Git init repo
 Commands to start new repo local or remotely
 ~~~bash
@@ -11,13 +11,13 @@ git init --yes
 gh repo create
 ~~~
 ## Git clone repo
-web can clone a existing repo locally
+We can clone a existing repo locally
 ~~~bash
-# Make a copy of repo in our local machine
+# Do a copy of repo in our local machine
 gh repo clone {{userName}}/{{repoName}}
 ~~~
-## configure git ignore local
-We can define a git ignore file locally, to these we need to create a .gitignore file and add paht of ignore files
+## Configure git ignore local
+We can define a git ignore file locally, to these we need to create a .gitignore file and add path of ignore files
 ~~~bash
 # In root of repo
 touch .gitignore && code $_
@@ -26,21 +26,21 @@ touch .gitignore && code $_
 {{fileName}}
 *.{{extension}}
 /{{dirName}}
-# Now store it and git start apply you ignore list immediately
+# Now store it and git starts applying your ignore list immediately
 ~~~
-## git delete repo
+## Git delete repo
 To delete a Git repo we need to remove the .git directory
 ~~~bash
 # In the root of repo
 rm -rf .git
 ~~~
 # Git environments
-Git can work in two principals environments, local and remote
+Git can work mainly in two environments, local and remote
 ## Local repo
 These environments refer to commit storage on our machine and have some 'areas' to organize your files and view its state. In these environment, we can find the following areas
 ### Working area aka workSpace
-Here is our main space here we can a list of all our files on repository directory, this files can be tracked or not.
-Also in working space we can manage branches, add or drop file from stagging and sync our changes with remote repository
+Is our main space, here we can a list of all our files on repository directory, this files can be tracked or not.
+In working space also we can manage branches, add or drop file from stagging and sync our changes with remote repository.
 ### Staging area aka Index
 In short, all the files we add to these area will be included in the next commit.
 ### Stash area 
@@ -48,9 +48,9 @@ This area stores different snapshots of the workspace, we can restore them later
 ## Remote repo
 This environment refers to an external server where we store our commit history, we use the remote repository to be able to do projects with other people.
 # Branches
-Both locally and remotely the branches let us divide our code into branches, these are forks of the code. What we do in the workspace affects only our current branch. All repositories start on the main branch
+Both locally and remotely the branches let us divide our code into 'pices', these are forks of the code. What we do in the workspace affects only our current branch. All repositories start on the main branch
 ## Create a new branch
-Normally we are make a new from from other branch but if we want, can do a orphan branch.
+Normally we make a new branch from another but if we want, can do an orphan branch.
 ~~~bash
 # Create a new branch from actual branch
 git branch {{branchName}}
@@ -104,7 +104,7 @@ Changes not staged for commit:
         modified:   lectures/01_git-basics/README.md
 ~~~
 ## Add files to staging area
-This command let you agregate files or directorys to the stage area and get ready to commit
+This command let you aggregate files or directories to the staging area and get ready to commit
 ~~~bash
 # Add all files or directorys from working directory
 git add .
@@ -114,7 +114,7 @@ git add ./{{dirName}}
 git add ./{{fileName}} or git add ./{{dirName}}/{{fileName}}
 ~~~
 ## Commit staging area
-When commit a staging area, we add a new 'node' in the branch history with the changes added before
+When commit a staging area, we add a new 'node' in the branch history with the changes added before commit
 ~~~bash
 # Commit with message
 git commit -m "message"
@@ -202,7 +202,7 @@ git push {{originName}} :{{branchName}}
 A pull request is a process of verify and merge our changes on remote repository
 We can do it un github web but thanks to Gh cli we can manage pull request directly on terminal. 
 ~~~bash
-# Create pr in interactive mode from actual branch to origin/main
+# Create pr interactively mode from actual branch to origin/main
 gh pr create
 # Create pr with title and body message
 gh pr create -t {{title}} -b {{bodyMessage}}

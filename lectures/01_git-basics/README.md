@@ -151,7 +151,76 @@ git stash drop
 git stash drop stash@{stashIndex} # git stash drop stash@{4}
 ~~~
 # work in remote
-## pull
-## push
-## fetch
-## pull request
+Git let us to work with remote repositories, this is helpful when want to work with other developers, the minimal commands to do it it's the follows
+## Remote
+Remote let us manage the difference origins stored in our local repository
+~~~bash
+# See all origins of our local repo
+git remote -v
+# Add new origin
+git remote add {{originName}} {{repoUrl}}
+# Rename origin
+git remote rename {{oldOriginName}} {{newOriginName}}
+# Remove origin
+git remote rm {{originName}}
+~~~
+## Fetch
+Fetch allow us to sync our local and remote repo withaout make changes on local
+~~~bash
+# Fetch specific origin, origin is default option
+git fetch {{originName}}
+# Fetch specific branch and origin
+git fech {{originName}}/{{branchName}}
+~~~
+## Pull
+This command is very similar to fetch but has one important difference: pull creates a new merge when data is retrieved.
+~~~bash
+# Pull from default origin
+git pull
+# Pull specific origin
+git pull {{originName}}
+~~~
+## Push
+It allow us to upload our commits to the remote repo.
+If the pushed branch not exist on remote yet you need to set upstream flag
+~~~bash
+# Push current branch to default origin
+git push
+# Push specified branch to indicated origin
+git push {{originName}} {{branchName}}
+# With upstream
+git push --set-upstream {{originName}} {{branchName}}
+~~~
+## Delete a remote branch
+~~~bash
+# First remove local branch
+git branch -D {{branchName}}
+# And then remove remote branch
+git push {{originName}} :{{branchName}}
+~~~
+## Pull request
+A pull request is a process of verify and merge our changes on remote repository
+We can do it un github web but thanks to Gh cli we can manage pull request directly on terminal. 
+~~~bash
+# Create pr in interactive mode from actual branch to origin/main
+gh pr create
+# Create pr with title and body message
+gh pr create -t {{title}} -b {{bodyMessage}}
+
+# List of open pull request
+gh pr list
+
+# See changes of pull request
+gh pr diff {{prNumber}}
+
+# Add review to pull request
+gh pr review {{prNumber}} --approve
+gh pr review {{prNumber}} --comment -b {{commentBody}}
+gh pr review {{prNumber}} --request-changes -b {{changesBody}}
+
+# Merge pull request
+gh pr merge {{prNumber}}
+
+# Close pull request
+gh rp close {{prNumber}}
+~~~

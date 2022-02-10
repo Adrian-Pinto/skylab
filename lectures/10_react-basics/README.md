@@ -1,6 +1,6 @@
 # React
  - [Init React app](#init-react-app)
- - [JSX]()
+ - [JSX](#jsx)
  - [Elements]()
  - [Components]()
    - [Naming]()
@@ -36,8 +36,52 @@ Now can init new project via npx
 npx create-react-app {{projectName}}
 ~~~
 # JSX
-https://es.reactjs.org/docs/introducing-jsx.html
-# Elements
+Is a javascript extension created by Facebook to used it how preprocessor to mix HTML sintax and javascript to optain React elements, to after render it on a component.
+
+> Use JSX is not mandatory but recomended
+
+A React element is a HTML Node with or without children.
+~~~jsx
+// Basic element
+const element = (
+  <div>
+    <h1>Hi! i'm a element</h1>
+  </div>
+);
+
+// Element using React.createElement
+const element = React.createElement(
+  'HtmlTag',
+  {attributes},
+  'TextNode' || [elementsArray]
+);
+
+// Element with children
+const hElement = React.createElement(
+  'h1',
+  {},
+  'Awesome title!'
+);
+
+const aElement = React.createElement(
+  'a',
+  {href: link.url},
+  'Click to see more!'
+);
+
+const divElement = React.createElement(
+  'div',
+  {},
+  [hElement, aElement] 
+);
+~~~
+In these elements we can use curly braces {} to embed javascript expresions on HTML tags in the nex way
+~~~jsx
+const name = 'world!';
+<h1>Hello, {name}</ h1>
+// You can use {} to add attributes dinamically
+<img src={image.url}></img>
+~~~
 # Components
 ## Naming
 ## Life cicle

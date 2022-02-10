@@ -1,5 +1,5 @@
 # React
- - [Init a project]()
+ - [Init React app](#init-react-app)
  - [JSX]()
  - [Elements]()
  - [Components]()
@@ -25,8 +25,16 @@
  - [Fetch data]()
  - [Froms]()
 
-# Init a project
-(https://es.reactjs.org/docs/create-a-new-react-app.html)
+# Init React app
+Before init a new React app, we need to install the package [create react app](https://create-react-app.dev/) via npm
+~~~bash
+npm i -g create-react-app
+~~~
+Now can init new project via npx
+~~~bash
+# This command do a new dir called projectName and init new React app inside
+npx create-react-app {{projectName}}
+~~~
 # JSX
 https://es.reactjs.org/docs/introducing-jsx.html
 # Elements

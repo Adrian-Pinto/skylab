@@ -315,14 +315,118 @@ export default () => {
 ~~~
 
 # Basic Hooks
-## UseState
-## UseEffect
-## UseContext
+Hooks in React is a way let to us use states and other features of components without class dependences.
 
-# Custom Hooks
-# Memo
+It's help us to write more simple components avoid in the way the wrappers hell.
+
+And open the posibility of split components in smaller function to make more easy mantein and scale these components.
+
+> ## [The rules](https://reactjs.org/docs/hooks-rules.html):
+> - The hooks only ben called at the top lovel, these means dont call it inside loop, conditions or on nested functions
+>
+> - Only call hook in React Components
+
+You can see all hooks reference [here](https://reactjs.org/docs/hooks-reference.html)
+
+## UseState
+Add a local state in a component, these state is preservet between re-renders.
+
+useState return a value and one update function and we can provite a one initial state
+
+~~~jsx
+// useState declaration
+const [value, funtionToUpdateValue] = useState(initialValue);
+
+// Simple implementation of useState
+import React, { useState } from 'react';
+
+const ExampleComponent = () => {
+  const [count, setCount] = useState(0);
+
+  return (
+    <>
+      <p>You clicked {count} times!</p>
+      <button onClick={() => setCount(count++)}>
+        Click me!
+      </button>
+    </>
+  );
+}
+~~~
+
+## UseEffect
+These hooks can do the work of life cicle events (Mount, update, UnMount) but implement in one API
+
+~~~jsx
+// Use useEffect like componentDidUpdate
+import React, { useState, useEffect } from 'react';
+
+const ExampleComponent = () => {
+  const [count, setCount] = useState(0);
+
+  // Now each time wen state count is update the document title too
+  useEffect(() => document.title = `You clicked ${count} times`;)
+
+  return (
+    <>
+      <p>You clicked {count} times!</p>
+      <button onClick={() => setCount(count++)}>
+        Click me!
+      </button>
+    </>
+  );
+}
+~~~
+
+## UseContext
+These hook links components what use it with a one context and when  the value of context provider changes this trigger a re-render on components
+
+~~~jsx
+const themes = {
+  light: {
+    foreground: "#000000",
+    background: "#eeeeee"
+  },
+  dark: {
+    foreground: "#ffffff",
+    background: "#222222"
+  }
+};
+
+const ThemeContext = React.createContext(themes.light);
+
+function App() {
+  return (
+    // If the provider value changes, we trigger a ThemedButton re-render
+    <ThemeContext.Provider value={themes.dark}>
+      <Toolbar />
+    </ThemeContext.Provider>
+  );
+}
+
+function Toolbar(props) {
+  return (
+    <div>
+      <ThemedButton />
+    </div>
+  );
+}
+
+function ThemedButton() {
+  const theme = useContext(ThemeContext);  
+  
+  return (
+    <button style={{ background: theme.background, color: theme.foreground }}>
+      I am styled by theme context!
+    </button>
+  );
+}
+~~~
+
 # Rutes
 [React router](https://v5.reactrouter.com/web/api/Hooks)
+
 # Fetch data
+
 # Froms 
 [React hook form](https://react-hook-form.com/)

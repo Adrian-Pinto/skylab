@@ -1,4 +1,4 @@
-# React basics example
+# React router basic example
 This is an simple example of React App with:
  - Components
  - React Router

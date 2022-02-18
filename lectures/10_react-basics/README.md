@@ -521,6 +521,141 @@ Renders the first Route or Redirect that matches with destiny path
  - [Route redirect](./examples/redirect-basics/)
  - [Route no match](./examples/404-example/)
 
+# Forms 
+In react we have various ways to implement a form.
+ - Stateless component
+ - Stateful component
+ - Stateful and aid from a package like a [React hook form](https://react-hook-form.com/)
 
+## Form via stateless component
+We can use React.useRef() hook to persist a reference of one HTMLnode of the DOM.
+This way the component not have a internal state, this mean we can't validate the fields automatically when change it's values or access these values from other parts of our app.
+
+~~~jsx
+// Anatomy of useRef
+import { useRef } from 'react';
+
+const ref = useRef(optionalInitialValue);
+/*
+Now can access to ref like a object
+ref = {
+  current: refValue
+}
+*/
+~~~
+
+How useRef() only binds one HTMLnode if our form have a multiple inputs that we want to read, we need to do a useRef for each node to bind or bind the parent node and destructure the desired nodes, let's see an example.
+
+~~~jsx
+const FormComponent = () => {
+
+  const formRef = useRef();
+
+  const handleSubmit = (event) => {
+    const [name, mail] = formRef.current;
+
+    event.preventDefault();
+    console.log(`
+      Name: ${name.value}
+      Mail: ${mail.value}
+    `)
+  };
+
+  return (
+    <form ref={formRef} onSubmit={handleSubmit} >
+      <label>
+      Name:
+      <input name="name" type="text" />
+      <label>
+      <label>
+      Mail:
+      <input name="mail" type="text" />
+      <label>
+      <br />
+      <button type="submit" value="Submit" />
+    </form>
+  )
+}
+~~~
+
+## Form via stateful component
+The principal benefit of use a stateful form component, is allow to validate the inputs fields in real time and the possibility to share it's state in our app.
+
+Let's see a simple example:
+
+~~~jsx
+const FormComponent = () => {
+  const [inputs, setInputs] = useState();
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    console.log('Info to send:');
+    console.log(inputs);
+  }
+
+  const handleChange = ({target}) => {
+    const [name, value] = target;
+
+    setInputs({ [name]: value });
+  }
+
+  return (
+    <form onSubmit={handleSubmit}>
+      <label>
+        Name:
+        <input name="name" type="text" onChange={handleChange} value={input.name} />
+      </label>
+      <label>
+        Mail:
+        <input name="mail" type="text" onChange={handleChange} value={input.mail} />
+      </label>
+      <br />
+      <input type="submit" value="Submit" />
+    </form>
+  );
+}
+~~~
+
+## Form via React Hook Form package
+This type of package aid us to make forms more simple, given to us a tools to manage events, state and validations of our form.
+Let's see a simple use case:
+
+First we need to install the package from npm.
+
+~~~bash
+npm install react-hook-form
+~~~
+
+And imports custom hook of package in to our code.
+
+~~~jsx
+import React from 'react';
+import { useForm } from 'react-hook-form';
+
+const FormComponent = () => {
+  const { register, handleSubmit, formState: { errors } }  = useForm();
+
+  const onSubmit = (data) => console.log(data)
+
+  return (
+    <form onSubmit={handleSubmit(onSubmit)}>
+      <label>
+        Name:
+        <input {...register("name", { required: true })} />
+        {errors.name?.type === 'required' && 'Name is required.'}
+      </label>
+      <label>
+        Mail:
+        <input {...register("mail", { required: true })} />
+        {errors.mail?.type === 'required' && 'Mail is required.'}
+      </label>
+      <br />
+      <input type="submit" />
+    </form>
+  );
+}
+
+export default FormComponent;
+~~~
 
 # Fetch data

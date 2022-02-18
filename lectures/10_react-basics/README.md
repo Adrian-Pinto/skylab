@@ -18,8 +18,6 @@
    - [useState]()
    - [useEffect]()
    - [useContext]()
- - [Custom Hooks]()
- - [Memo]()
  - [Rutes]()
  - [Fetch data]()
  - [Froms]()
@@ -379,7 +377,7 @@ const ExampleComponent = () => {
 ~~~
 
 ## UseContext
-These hook links components what use it with a one context and when  the value of context provider changes this trigger a re-render on components
+These hook links components what use it with a one context and when the value of context provider changes this trigger a re-render on components
 
 ~~~jsx
 const themes = {
@@ -423,10 +421,106 @@ function ThemedButton() {
 }
 ~~~
 
-# Rutes
-[React router](https://v5.reactrouter.com/web/api/Hooks)
+# Routes
+The [React router](https://v5.reactrouter.com/core/guides/quick-start) let us split our code between defined paths, also allows us do a static or nested routes
+
+## Installation
+We will recurre to npm for install React router, in this way.
+
+~~~bash
+# In the next examples we use a React Router v5
+npm install react-dom react-router-dom@^5
+~~~
+
+## Browser Router
+When we want to use a Route, we need to nest in a `<BrowserRouter />` component. This component keep the history and state of our rutes.
+
+This component have some optional props we use:
+~~~jsx
+<BrowserRouter 
+  basename={String}
+  forceRefresh={Boolean}
+  getUserConfirmation={Function}
+>
+  <ComponentNested />
+</BrowserRouter>
+~~~
+
+### `basename`
+This prop let us to define one path before of destiny path, this help us to agroup a certains paths under one same origin. 
+~~~jsx
+<BrowserRouter basename="/calendar">
+    <Link to="/today"/> // render <a href="/calendar/today">
+    <Link to="/tomorrow"/> // render <a href="/calendar/tomorrow">
+    ...
+</BrowserRouter>
+~~~
+
+### `forceRefresh`
+When we use this flag, React do a re-render of page, every time what user navigate to other route.
+
+### `getUserConfirmation`
+Allow us use a function to ask a confirmation to user when he want change to other route.
+~~~jsx
+<BrowserRouter
+  getUserConfirmation={(message, callback) => {
+    // This is the default behavior
+    const allowTransition = window.confirm(message);
+    callback(allowTransition);
+  }}
+/>
+~~~
+
+## Route
+This component render the nested component if the path of Route matches the path required by the user, like this.
+
+~~~jsx
+<Router>
+  <Route exact path="/">
+    <Home />
+  </Route>
+  <Route path="/profile">
+    <UserProfile />
+  </Route>
+</Router>
+~~~
+
+## Link
+These component render an anchor and can use to navigate over our app, we can use 'to' prop with a string, object or function.
+But i'm only going to show the first two cases.
+
+~~~jsx
+// to: String
+<Link to="/items?sort=name">See items</Link>
+
+// to: Object
+<Link to={{
+  pathname: "/items",
+  search: "?sort=name",
+  hash: "#Hash",
+  state: { isLogin } // we can use to persist one state to destiny
+}}>See items</Link>
+~~~
+
+## Switch
+Renders the first Route or Redirect that matches with destiny path
+
+~~~jsx
+<Router>
+  <Switch>
+    <Route path="/" component={HomePage}>
+    <Route path="/user/profile" component={UserProfile}>
+    <Route component={NotFound}>
+  </Switch>
+</Router>
+~~~
+
+## Code examples 
+ - [Router basics](./examples/router-basics/)
+ - [Nested routes](./examples/nested-routes/)
+ - [Route redirect](./examples/redirect-basics/)
+ - [Route no match](./examples/404-example/)
+
+
 
 # Fetch data
-
-# Froms 
-[React hook form](https://react-hook-form.com/)

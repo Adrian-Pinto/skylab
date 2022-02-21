@@ -1,0 +1,8 @@
+.navBar > ul {
+  display: flex;
+  flex-direction: row;
+}
+
+.navBar > ul > li {
+  margin: 0em 1em; 
+}

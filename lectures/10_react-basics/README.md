@@ -659,3 +659,24 @@ export default FormComponent;
 ~~~
 
 # Fetch data
+When we desire load data from external location, we can require then through a external library or use web API [fetch](https://developer.mozilla.org/en/docs/Web/API/fetch) or [XMLHttpRequest](https://developer.mozilla.org/en/docs/Web/API/XMLHttpRequest).
+
+Below you can see a simple example. But [here](./examples/fetch-example) i leave a functional example.
+
+~~~jsx
+// Fech example
+const fetchData = () => 
+  fetch(`url`)
+    .then((response) => response.json())
+    .then((data) => /* Do stuff */)
+    .catch((error) => /* Handle error */)
+
+// XMLHttpRequest example
+const newXHR = () => {
+    const xhr = new XMLHttpRequest();
+    xhr.open('GET', `url`, true);
+    xhr.onloadend = () => /* Do stuff */;
+    xhr.onerror = () => /* Handle error */;
+    xhr.send();
+};
+~~~

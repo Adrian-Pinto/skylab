@@ -1,27 +1,34 @@
 # React
  - [Init React app](#init-react-app)
  - [JSX](#jsx)
- - [Components]()
-   - [Naming]()
-   - [Life cicle]()
-   - [Functional components]()
-   - [Class components]()
-   - [fragments]()
-   - [Events]()
-   - [Lists]()
-   - [Style Components]()
-     - [Style sheets]()
-     - [CSS modules]()
- - [Props & States]()
- - [Conditional Rendering  ]()
- - [Basic Hooks]()
-   - [useState]()
-   - [useEffect]()
-   - [useContext]()
- - [Rutes]()
- - [Fetch data]()
- - [Froms]()
+ - [Components](#components)
+   - [Naming](#naming)
+   - [Render component](#render-component)
+   - [Life cicle & states](#life-cicle-and-states)
+   - [Events](#events)
+   - [Conditional rendering](#conditional-rendering)
+   - [Lists](#lists)
+   - [Style Components](#style-components)
+     - [Style sheets](#style-sheets)
+     - [Json Style](#json-style)
+     - [Styled components](#styled-components)
+ - [Basic Hooks](#basic-hooks)
+   - [useState](#usestate)
+   - [useEffect](#useeffect)
+   - [useContext](#usecontext)
+ - [Rutes](#routes)
+   - [Browser Router](#browser-router)
+   - [Rute](#route)
+   - [Link](#link)
+   - [Switch](#switch)
+   - [Code examples](#code-examples)
+ - [Froms](#forms)
+   - [Stateless Froms](#form-via-stateless-component)
+   - [Stateful Froms](#form-via-stateful-component)
+   - [React Hook Form package](#form-via-react-hook-form-package)
+ - [Fetch data](#fetch-data)
 
+---
 # Init React app
 Before init a new React app, we need to install the package [create react app](https://create-react-app.dev/) via npm
 
@@ -35,6 +42,8 @@ Now can init new project via npx
 # This command do a new dir called projectName and init new React app inside
 npx create-react-app {{projectName}}
 ~~~
+
+[Return to Index ^](#react)
 
 # JSX
 Is a javascript extension created by Facebook to used it how preprocessor to mix HTML sintax and javascript to optain React elements, to after render it on a component.
@@ -86,6 +95,8 @@ const name = 'world!';
 // You can use {} to add attributes dinamically
 <img src={image.url}></img>
 ~~~
+
+[Return to Index ^](#react)
 
 # Components
 Components let us group the view in separate pieces and render it separately
@@ -326,6 +337,8 @@ export default () => {
 };
 ~~~
 
+[Return to Index ^](#react)
+
 # Basic Hooks
 Hooks in React allow us use states and other features of components without class dependences.
 
@@ -435,6 +448,8 @@ function ThemedButton() {
 }
 ~~~
 
+[Return to Index ^](#react)
+
 # Routes
 The [React router](https://v5.reactrouter.com/core/guides/quick-start) let us split our code between defined paths, also allows us do a static or nested routes
 
@@ -537,6 +552,8 @@ Renders the first Route or Redirect that matches with destiny path
  - [Nested routes](./examples/nested-routes/)
  - [Route redirect](./examples/redirect-basics/)
  - [Route no match](./examples/404-example/)
+
+[Return to Index ^](#react)
 
 # Forms 
 In react we have various ways to implement a form.
@@ -675,6 +692,8 @@ const FormComponent = () => {
 export default FormComponent;
 ~~~
 
+[Return to Index ^](#react)
+
 # Fetch data
 When we desire load data from external location, we can require then through a external library or use web API [fetch](https://developer.mozilla.org/en/docs/Web/API/fetch) or [XMLHttpRequest](https://developer.mozilla.org/en/docs/Web/API/XMLHttpRequest).
 
@@ -697,3 +716,5 @@ const newXHR = () => {
     xhr.send();
 };
 ~~~
+
+[Return to Index ^](#react)

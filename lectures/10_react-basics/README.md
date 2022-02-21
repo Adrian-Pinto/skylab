@@ -24,20 +24,25 @@
 
 # Init React app
 Before init a new React app, we need to install the package [create react app](https://create-react-app.dev/) via npm
+
 ~~~bash
 npm i -g create-react-app
 ~~~
+
 Now can init new project via npx
+
 ~~~bash
 # This command do a new dir called projectName and init new React app inside
 npx create-react-app {{projectName}}
 ~~~
+
 # JSX
 Is a javascript extension created by Facebook to used it how preprocessor to mix HTML sintax and javascript to optain React elements, to after render it on a component.
 
 > Use JSX is not mandatory but recomended
 
 A React element is a HTML Node object representation with or without childrens.
+
 ~~~jsx
 // Basic element
 const element = (
@@ -72,7 +77,9 @@ const divElement = React.createElement(
   [hElement, aElement] 
 );
 ~~~
+
 In these elements we can use curly braces {} to embed javascript expresions on HTML tags in the nex way
+
 ~~~jsx
 const name = 'world!';
 <h1>Hello, {name}</ h1>
@@ -83,6 +90,7 @@ const name = 'world!';
 # Components
 Components let us group the view in separate pieces and render it separately
 It is like a JS functions and accept input arguments named **props** this components return a React elements
+
 ~~~jsx
 // Component using function
 const WelcomeComponent = (props) => <h1>Hello, {props.name}</h1>
@@ -94,11 +102,13 @@ class WelcomeComponent extends React.Component {
   }
 }
 ~~~
+
 ## Naming
-The components names ever to be with a capital letter, this way React can differentiate beetwen html tag and React components
+The components names ever to be with a capital letter, this way React can differentiate between html tag and React components
 
 ## Render component
 Once we have a our components ready, we need to render then and this way React can do update of DOM with elements has ben passed
+
 ~~~jsx
 const WelcomeComponent = (props) => <h1>Hello, {props.name}</h1>
 const element = <WelcomeComponent name="Paula" />;
@@ -160,8 +170,9 @@ ReactDOM.render(
   document.getElementById('root')
 );
 ~~~
-These code re-render clock time each 1000ms, updating component status and send then how prop for render it.
-This way we can afirm what status can go up from children to parents and props go down from parents to childrens.
+
+These code re-render clock time each 1000ms, updating component status and send then how prop to render it.
+In this way we can affirm that states can go up from children to parents and props go down from parents to childrens.
 
 > When one component have a internal state it's called stateful component
 
@@ -169,8 +180,10 @@ This way we can afirm what status can go up from children to parents and props g
 
 ## Events
 React handle events very similar of javascript, next will can see a example in a component
+
 ~~~jsx
 const FromComponent = () => {
+
   const handleSubmit = (event) => {
     event.preventDefault();
     console.log('Click on submit button!');
@@ -185,7 +198,7 @@ const FromComponent = () => {
 ~~~
 
 ## Conditional Rendering
-Using props or states and the conditionals operators we can chose wath elements we want to render
+Using props or states and the conditionals operators we can choose what elements we want to render
 
 ~~~jsx
 const MenuComponent = ({isLogged}) => isLogged ? <UserMenu /> : <GuestMenu />
@@ -200,6 +213,7 @@ ReactDOM.render(
 React have the capability of render a index or keys collections (aka: Arrays and Objects) of elements, thanks to methods. Lets see how to do it.
 
 When do a list we need to give a unique key per item, this way React can differentiate one items from others.
+
 ~~~jsx
 // List from Array
 const NumberList = ({numbers}) => {
@@ -265,7 +279,7 @@ export default () => {
 };
 ~~~
 ### Json style
-In this way you can define you css rules in a json and assing then on a variable
+In this way you can define you css rules in a json and assign then on a variable
 
 ~~~jsx
 import React from 'react';
@@ -288,7 +302,7 @@ export default () => {
 ~~~
 
 ### Styled Components
-These package let us to define styled components in a very simple way, powerfull and extensible, you can see the compete docs [here](https://styled-components.com/docs)
+These package let us to define styled components in a very simple way, powerfull and extensible, you can see the complete docs [here](https://styled-components.com/docs)
 
 ~~~jsx
 // Simple example using styled components
@@ -313,23 +327,23 @@ export default () => {
 ~~~
 
 # Basic Hooks
-Hooks in React is a way let to us use states and other features of components without class dependences.
+Hooks in React allow us use states and other features of components without class dependences.
 
 It's help us to write more simple components avoid in the way the wrappers hell.
 
-And open the posibility of split components in smaller function to make more easy mantein and scale these components.
+And it opens up the posibility of split components in smaller function to make more easy mantein and scale these components.
 
 > ## [The rules](https://reactjs.org/docs/hooks-rules.html):
-> - The hooks only ben called at the top lovel, these means dont call it inside loop, conditions or on nested functions
+> - The hooks only ben called at the top level, these means they cannot be used inside loop, conditions or on nested functions
 >
-> - Only call hook in React Components
+> - You can only use a hook in React components
 
 You can see all hooks reference [here](https://reactjs.org/docs/hooks-reference.html)
 
 ## UseState
 Add a local state in a component, these state is preservet between re-renders.
 
-useState return a value and one update function and we can provite a one initial state
+useState return a value, one update function and we can provite a one initial state
 
 ~~~jsx
 // useState declaration
@@ -353,7 +367,7 @@ const ExampleComponent = () => {
 ~~~
 
 ## UseEffect
-These hooks can do the work of life cicle events (Mount, update, UnMount) but implement in one API
+These hooks can do the work of life cycle events (Mount, update, UnMount) but implemented in one API
 
 ~~~jsx
 // Use useEffect like componentDidUpdate
@@ -377,7 +391,7 @@ const ExampleComponent = () => {
 ~~~
 
 ## UseContext
-These hook links components what use it with a one context and when the value of context provider changes this trigger a re-render on components
+This hook, links components what use it with a one context and when the value of context provider changes this trigger a re-render on components
 
 ~~~jsx
 const themes = {
@@ -402,7 +416,7 @@ function App() {
   );
 }
 
-function Toolbar(props) {
+function Toolbar() {
   return (
     <div>
       <ThemedButton />
@@ -435,7 +449,8 @@ npm install react-dom react-router-dom@^5
 ## Browser Router
 When we want to use a Route, we need to nest in a `<BrowserRouter />` component. This component keep the history and state of our rutes.
 
-This component have some optional props we use:
+This component have some optional props we can use:
+
 ~~~jsx
 <BrowserRouter 
   basename={String}
@@ -447,7 +462,8 @@ This component have some optional props we use:
 ~~~
 
 ### `basename`
-This prop let us to define one path before of destiny path, this help us to agroup a certains paths under one same origin. 
+This prop let us to define one path before of destiny path, this help us to agroup a certains paths under one same origin.
+
 ~~~jsx
 <BrowserRouter basename="/calendar">
     <Link to="/today"/> // render <a href="/calendar/today">
@@ -461,6 +477,7 @@ When we use this flag, React do a re-render of page, every time what user naviga
 
 ### `getUserConfirmation`
 Allow us use a function to ask a confirmation to user when he want change to other route.
+
 ~~~jsx
 <BrowserRouter
   getUserConfirmation={(message, callback) => {

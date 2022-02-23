@@ -162,6 +162,6 @@ beforeEach(() => {
 ~~~
 
 # Functional example
-In the next example imagine we have a calculator methods and we want to test them to find any error.
+In the next example imagine we have a some methods in a object imported how calculator and we want to test them to find any error.
 
-In these [example](./example/) we can take a look how do that.
+In this [example](./example/) we can take a look how do that.

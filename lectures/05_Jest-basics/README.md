@@ -19,6 +19,21 @@ The idea behind Jest is provide a simple testing environment with minimal config
 npm install --save-dev jest
 ~~~
 
+If you want to use Jest with es6+ we need to install and configure babel
+
+~~~bash
+# Install babel
+npm install --save-dev @babel/preset-env
+
+# Now create babel config file and open in VScode
+touch .babelrc && code $_
+
+# Finally paste this config and save file 
+{
+  "presets": ["@babel/preset-env"]
+}
+~~~
+
 ## Use Jest
 We can use Jest over cli, this allow us run Jest with some [options](https://jestjs.io/docs/cli) or listen changes on our test and code.
 
@@ -124,7 +139,6 @@ expect('ABC').toBe('ZXY') // NOT PASS
 expect(true).toBeTruthy() // PASS
 
 expect(true).toBeFalsy() // NOT PASS
-
 ~~~
 
 ## Before & After test
@@ -148,3 +162,6 @@ beforeEach(() => {
 ~~~
 
 # Functional example
+In the next example imagine we have a calculator methods and we want to test them to find any error.
+
+In these [example](./example/) we can take a look how do that.

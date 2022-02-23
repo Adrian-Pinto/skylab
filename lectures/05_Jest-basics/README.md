@@ -43,21 +43,40 @@ jest --collect-coverage
 ~~~
 
 # Gherkin
-[Gherkin](https://cucumber.io/docs/gherkin/reference/#keywords) is a syntax rules created to use with [Cucumber](https://cucumber.io/docs/guides/overview/#what-is-cucumber), this syntax allow us do a structured scenarios easy, and use then how live documentation of our apps. But we go to use this syntax in this case with Jest.
+[Gherkin](https://cucumber.io/docs/gherkin/reference/#keywords) is a syntax rules created to use with [Cucumber](https://cucumber.io/docs/guides/overview/#what-is-cucumber), this syntax allow us do a structured scenarios easy, and use then how live documentation for our apps. But in this case we go to use Gherkin with Jest.
 
 ## Basic Syntax
 ### `Scenario`
-Description of what to do in the next cases.
+Description of what to do in the next tests.
 
 ### `Given`
-
+Describe the context on we do the next actions.
 
 ### `When`
+Is the action we do for each test we use one When to describe each one.
+
 ### `Then`
+Finally we describe the expected result of previous action.
+
 ### `And, But or *`
+When we have a multiple Given or When cases we can use And or *.
+And in case of Then we have But or *. 
 
-~~~
+~~~gherkin
+# Simple example doing a omelette
+Scenario: Do a omelette
 
+  Given: A egg
+    *  : A pan
+    *  : A flame
+
+   When: Cook a omelette
+    *  : Not burn it
+   Then: I have a omelette
+
+   When: Cook a omelette
+    *  : Burn it
+   Then: I have ashes
 ~~~
 
 # Describe
